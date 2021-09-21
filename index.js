@@ -1,5 +1,5 @@
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 
 // ejemplos de rutas *absoluta & relativa*
 const absolutePath = 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\src\\archivos\\path.md';
@@ -8,13 +8,12 @@ const relativePath = 'README.md'
 // console.log('hello')
 
 // Para ver si la ruta existe
-fs.access(absolutePath, (err) => {
-  console.log(`${absolutePath} ${err ? 'not exist' : 'exist'}`)
-})
+const existPath = (link) => fs.existsSync(link);
+console.log('path exist', existPath(relativePath));
 
 // Para ver si el path es absolute
 const isAbsolute = path.isAbsolute(absolutePath)
-console.log('Es absoluta', path.isAbsolute(absolutePath))
+console.log('Es absoluta', isAbsolute(absolutePath))
 
 // convertir una ruta relativa a absoluta
 function validatePath (relativePath) {
