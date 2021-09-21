@@ -8,15 +8,17 @@ const relativePath = 'README.md'
 // console.log('hello')
 
 // Para ver si la ruta existe
-const existPath = (link) => fs.existsSync(link);
+const existPath = (route) => fs.existsSync(route);
 console.log('path exist', existPath(absolutePath));
 
 // Para ver si el path es absolute
-const isAbsolute = (link) => path.isAbsolute(link);
+const isAbsolute = (route) => path.isAbsolute(route);
 console.log('it is absolute', isAbsolute(relativePath));
 
 // convertir una ruta relativa a absoluta
-const validatePath = (link) => path.resolve(link);
+const validatePath = (route) => path.resolve(route);
 console.log('path relative to absolute', validatePath(relativePath));
 
-// preguntar si es un directorio
+// Preguntar si es un directorio o archivo
+const isFile = (route) => fs.lstatSync(route).isDirectory();
+console.log('it is a file', isFile('./src/archivos'))
