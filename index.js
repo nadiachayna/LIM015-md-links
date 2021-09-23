@@ -12,27 +12,38 @@ const linksMD = 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\src
 
 // Para ver si la ruta existe
 const existPath = (route) => fs.existsSync(route);
-console.log('path exist', existPath(absolutePath));
+console.log('Does the route exist?', existPath(absolutePath));
 
 // Para ver si el path es absolute
 const isAbsolute = (route) => path.isAbsolute(route);
-console.log('it is absolute', isAbsolute(relativePath));
+console.log('Is the route absolute?', isAbsolute(relativePath));
 
-// convertir una ruta relativa a absoluta
+// Convertir una ruta relativa a absoluta
 const validatePath = (route) => path.resolve(route);
-console.log('path relative to absolute', validatePath(relativePath));
+console.log('convert path relative to absolute', validatePath(relativePath));
 
 // Preguntar si es un directorio o archivo
 const theDirectory = (route) => fs.lstatSync(route).isDirectory();
-console.log('it is a directory', theDirectory('./src'));
+console.log('Is a directory?', theDirectory('./src'));
 
-//Preguntar si tiene un archivo
+// Preguntar si tiene un archivo
 const theFile = (route) => fs.lstatSync(route).isFile();
-console.log('it is a file', theFile(linksMD));
+console.log('Is a file?', theFile(linksMD));
+
+// Leer el archivo
+const readDirectory = (route) => fs.readdirSync(route);
+console.log('What are the files?', readDirectory('./src/archivos'));
+
+// Preguntar si es archivo md
+const extension = (route) => path.extname(route);
+console.log('What is the extension?', extension(absolutePath));
 
 module.exports = {
   existPath,
   isAbsolute,
   validatePath,
+  theDirectory,
   theFile,
+  readDirectory,
+  extension
 };
