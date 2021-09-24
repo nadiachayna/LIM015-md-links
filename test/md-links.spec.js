@@ -4,7 +4,8 @@ const {   existPath,
   theDirectory,
   theFile,
   readDirectory,
-  extension } = require('../index');
+  extension,
+  fileContent } = require('../index');
 
 // si el path existe
 describe ('existPath', () => {
@@ -80,7 +81,6 @@ describe('readDirectory', () => {
   });
 });
 
-
 // leer la extensión md
 describe('Comprobar su isMd es una función', () => {
   it('Validar si es una función', () => {
@@ -96,3 +96,14 @@ describe('Comprobar su isMd es una función', () => {
     expect(extension('src\archivos')).toBe('');
   });
 });
+
+// Leer los links
+describe('fileContent', () => {
+  it('Validar si es una función', () => {
+    expect(typeof(fileContent)).toBe('function');
+  });
+ it('retorna los links', () => {
+    expect(fileContent('src/archivos/test/links.md')).toEqual(`https://curriculum.laboratoria.la/es/projects/md-links`);
+  });
+});
+
