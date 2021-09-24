@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// ejemplos de rutas *absoluta & relativa*
+// ejemplos de rutas *absoluta & relativa*  
 const absolutePath = 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\src\\archivos\\path.md';
 const relativePath = 'README.md';
 
@@ -35,8 +35,16 @@ const readDirectory = (route) => fs.readdirSync(route);
 console.log('What are the files?', readDirectory('./src/archivos'));
 
 // Preguntar si es archivo md
-const extension = (route) => path.extname(route);
-console.log('What is the extension?', extension(absolutePath));
+const extension = (route) => path.extname(route) === '.md';
+console.log('Is the md extension?', extension(absolutePath));
+
+// Retorna los links
+const fileContent = (route) => fs.readFileSync(route, 'utf-8');
+console.log('what are the files?', fileContent('src/archivos/test/links.md'));
+
+// unir dos rutas
+const joinPaths = (path1, path2) => path.join(path1,path2);
+console.log('Two routes join', joinPaths(absolutePath,relativePath))
 
 module.exports = {
   existPath,
@@ -45,5 +53,6 @@ module.exports = {
   theDirectory,
   theFile,
   readDirectory,
-  extension
+  extension,
+  fileContent
 };
