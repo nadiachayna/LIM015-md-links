@@ -5,7 +5,8 @@ const {   existPath,
   theFile,
   readDirectory,
   extension,
-  fileContent } = require('../index');
+  fileContent,
+  joinPaths} = require('../index');
 
 // si el path existe
 describe ('existPath', () => {
@@ -86,14 +87,11 @@ describe('Comprobar su isMd es una función', () => {
   it('Validar si es una función', () => {
     expect(typeof(extension)).toBe('function');
   });
-  it('should return the file extension', () => {
-    expect(extension('README.md')).toBe('.md');
+  it('should return the file md extension', () => {
+    expect(extension('README.md')).toBe(true);
   });
-  it('retorna la extensión del archivo.txt si no es una extensión Md', () => {
-    expect(extension('index.js')).toBe('.js');
-  });
-  it('retorna vacio si no es una extensión', () => {
-    expect(extension('src\archivos')).toBe('');
+  it('retorna vacio si no es una extensión md', () => {
+    expect(extension('index.js')).toBe(false);
   });
 });
 
@@ -107,3 +105,12 @@ describe('fileContent', () => {
   });
 });
 
+//unir dos rutas
+describe('joinPaths', () => {
+ it('Validar si es una función', () => {
+    expect(typeof(joinPaths)).toBe('function');
+  });
+ it('retorna dos rutas juntas', () => {
+    expect(joinPaths('src/archivos/test/links.md')).toEqual(`https://curriculum.laboratoria.la/es/topics/javascript/05-objects/01-objects`);
+  });
+});
