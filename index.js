@@ -2,10 +2,6 @@ const fs = require('fs');
 const { readFile } = require('fs/promises');
 const path = require('path');
 
-/* ************ rutas absoluta & relativa **************** */ 
-const absolutePath = 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\Directory\\file1\\routes.md';
-const relativePath = 'Directory\file1\routes.md';
-
 /* ************ Para ver si la ruta existe **************** */
 const existPath = (route) => fs.existsSync(route);
 
@@ -19,13 +15,13 @@ const validatePath = (route) => path.resolve(route);
 const readDirectory = (route) => fs.readdirSync(route);
 
 /* ********** Preguntar si es archivo md ********** */
-const extension = (route) => path.extname(route) === '.md';
+const extension = (route) => (path.extname(route) === '.md');
 
 /* *************  Retorna los links ************** */
 const fileContent = (route) => fs.readFileSync(route, 'utf-8');
 
 /* ************** unir dos rutas ************** */
-const joinPaths = (path1, path2) => path.join(path1,path2);
+const joinPaths = (path1, path2) => path.join(path1, path2);
 
 
 /* *********Función recursiva que recorre un directorio y lea los paths.md ********** */
@@ -81,5 +77,7 @@ module.exports = {
   readDirectory,
   extension,
   fileContent,
-  joinPaths
+  joinPaths,
+  checkPath,
+  getLinks
 };
