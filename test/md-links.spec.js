@@ -4,7 +4,9 @@ const { existPath,
   readDirectory,
   extension,
   fileContent,
-  joinPaths, checkPath, getLinks } = require('../index');
+  joinPaths, checkPath, getAllLinks, validateLinks } = require('../index');
+  
+const fetch = require('../mock/mock_fetch.js');
 
 /* **********************si el path existe********************* */
 describe ('existPath', () => {
@@ -90,10 +92,10 @@ describe('joinPaths', () => {
 
 /* *************** Función recursiva ***************** */
 describe('Function to step through a directory', () => {
-  it('checkPath() should be a function', () => {
+  it('checkPath should be a function', () => {
     expect(typeof(checkPath)).toBe('function');
   });
-  it('checkPath() should return an array with files .md', () => {
+  it('checkPath should return an array with files .md', () => {
     const pathDir = 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\Directory\\file1';
     const result = [
       'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\Directory\\file1\\readme2.md',
@@ -105,28 +107,81 @@ describe('Function to step through a directory', () => {
 
 /* ************* Función para extraer los links *************** */
 describe('function to get links from a file', () => {
-  it('getLinks() should be a function', () => {
-    expect(typeof(getLinks)).toBe('function');
+  it('getAllLinks should be a function', () => {
+    expect(typeof(getAllLinks)).toBe('function');
   });
-  it('getLinks should return an array of objects with three properties: href, text and file', () => {
+  it('getAllLinks should return an array of objects with three properties: href, text and file', () => {
     const pathFile = 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\Directory\\file1\\readme2.md';
     const result = [
       {
-        hrefLinks: 'https://nodejs.org/es/about/',
-        textLinks: 'Acerca de Node.js - Documentación oficial',
+        href: 'https://nodejs/es/about/',
+        text: 'Acerca de Node.js',
         file: 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\Directory\\file1\\readme2.md'
       },
       {
-        hrefLinks: 'https://nodejs.org/api/fs.html',
-        textLinks: 'Node.js file system - Documentación oficial',
+        href: 'https://nodejs.org/api/fs.html',
+        text: 'Node.js file system - Documentación oficial',
         file: 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\Directory\\file1\\readme2.md'
       },
       {
-        hrefLinks: 'https://nodejs.org/api/http.html#http_http_get_options_callback',
-        textLinks: 'Node.js http.get - Documentación oficial',
+        href: 'https://nodejs.org/api/http.html#http_http_get_options_callback',
+        text: 'Node.js http.get - Documentación oficial',
         file: 'C:\\Users\\Laboratoria\\Documents\\GitHub\\LIM015-md-links\\Directory\\file1\\readme2.md'
       }
     ];
-    expect(getLinks(pathFile)).toEqual(result);
+    expect(getAllLinks(pathFile)).toEqual(result);
+  });
+});
+
+/* *****************Función Validar Links******************* */
+const data = [
+  {
+    file: 'Directory\\file1\\readme2.md',
+    href: 'https://nodejs.org/api/fs.html',
+    message: 'Ok',
+    text: 'Node.js file system - Documentación oficial',
+    status: 200
+  },
+];
+
+const dataError = [
+  {
+    href: 'https://nodejs/es/about/',
+    status: 'No status',
+    file: 'Directory\\file1\\readme2.md',
+    message: 'Fail request to https://nodejs/es/about/ failed, reason: getaddrinfo ENOTFOUND nodejs'
+  },
+];
+
+
+describe('fetch data', () => {
+  it('debería validar datos', () => {
+    const output = [
+      {
+        file: 'Directory\\file1\\readme2.md',
+        href: 'https://nodejs.org/api/fs.html',
+        message: 'Ok',
+        text: 'Node.js file system - Documentación oficial',
+        status: 200
+      },
+    ];
+    fetch.mockResolvedValue(data);
+    return validateLinks(data).then((e) => {
+      expect(e).toEqual(output);
+    });
+  });
+  it('debería obtener error al validar', () => {
+    const outputError = [
+      {
+        href: 'https://nodejs/es/about/',
+        status: 'No status',
+        file: 'Directory\\file1\\readme2.md',
+        message: 'Fail request to https://nodejs/es/about/ failed, reason: getaddrinfo ENOTFOUND nodejs'
+      },
+    ];
+    fetch.mockResolvedValue(dataError);
+    return validateLinks(dataError).then((e) => {
+      expect(e).toEqual(outputError);
+    });
   });
 });
