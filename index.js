@@ -66,7 +66,7 @@ const regExLink = /\((https?.+?)\)/gi;
     };
     return hereLinks;
   };
-  const demo = getAllLinks('Directory\\file1\\readme2.md')
+  //const demo = getAllLinks('Directory\\file1\\readme2.md')
   //console.log(getAllLinks('Directory\\file1\\readme2.md'))
 
 /* ***************Función para validar****************** */
