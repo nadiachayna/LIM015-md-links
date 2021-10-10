@@ -1,3 +1,3 @@
 //mock manual
-const fetch = jest.fn();
-module.exports = fetch;
+const mockFetch = jest.fn();
+module.exports = { mockFetch };
