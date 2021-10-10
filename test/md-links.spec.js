@@ -6,7 +6,7 @@ const { existPath,
   fileContent,
   joinPaths, checkPath, getAllLinks, validateLinks } = require('../index');
   
-const fetch = require('../mock/mock_fetch.js');
+const { mockFetch } = require('../mock/mock_fetch');
 
 /* **********************si el path existe********************* */
 describe ('existPath', () => {
@@ -165,7 +165,7 @@ describe('fetch data', () => {
         status: 200
       },
     ];
-    fetch.mockResolvedValue(data);
+    mockFetch.mockResolvedValue(data);
     return validateLinks(data).then((e) => {
       expect(e).toEqual(output);
     });
@@ -179,9 +179,13 @@ describe('fetch data', () => {
         message: 'Fail request to https://nodejs/es/about/ failed, reason: getaddrinfo ENOTFOUND nodejs'
       },
     ];
-    fetch.mockResolvedValue(dataError);
+    mockFetch.mockResolvedValue(dataError);
     return validateLinks(dataError).then((e) => {
       expect(e).toEqual(outputError);
     });
   });
+});
+
+afterAll(async () => {
+	await new Promise(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error
 });
