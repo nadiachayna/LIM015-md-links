@@ -1,5 +1,5 @@
 # ✨ md-links-cats <img src="https://media.giphy.com/media/mGcNjsfWAjY5AEZNw6/giphy.gif" width="50"> ✨
-Es la librería, en la cual su función va es validar las rutas o llamadas URL que estén dentro de archivos o directorios Markdown en donde podremos verificar si los links se encuntran rotos y/o no estén válidos. : status de los links, toDonde obtendremos el status de los links, links únicos, links rotos y el total de estos.
+Es la librería, en la cual su función va es validar las rutas o llamadas URL que estén dentro de archivos o directorios Markdown en donde podremos verificar si los links se encuentran rotos y/o no estén válidos, el status de los links, links únicos, links rotos y el total de estos.
 
 ***
 
@@ -50,7 +50,7 @@ Si no recuerdas las opciones, puedes colocar `--help`.
 [![pic7](https://i.postimg.cc/DyJqr8Bw/mdlinks-empty.png)]()
 
 ***
-## Diagramas
+### Diagramas
 
 DIAGRAMA API y CLI
 <div align="center">
